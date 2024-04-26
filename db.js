@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 
-var mongoURL = `mongodb+srv://admin:admin123@cluster0.cdndp0p.mongodb.net/mero-hotel`
+var mongoURL = mongoose.connect(mongoURL, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
+var connection = mongoose.connection;
 
-mongoose.connect(mongoURL , {useUnifiedTopology: true , useNewUrlParser: true})
+connection.on("error", () => {
+  console.log("Mongo DB connection unsuccessful");
+});
 
-var connection = mongoose.connection
+connection.on("connected", () => {
+  console.log("Mongo DB connection successful");
+});
 
-connection.on('error', () =>{
-    console.log('Mongo DB connection unsuccessful')
-})
-
-connection.on('connected', () =>{
-    console.log('Mongo DB connection successful')
-})
-
-module.exports = mongoose
+module.exports = mongoose;
